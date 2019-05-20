@@ -1,0 +1,15 @@
+{% macro raw(value) %}
+{{ value }}
+{% endmacro %}
+
+{% macro text(value) %}
+<p class="copy">{{ value }}</p>
+{% endmacro %}
+
+{% macro list(value) %}
+<ul>
+  {% for item in value %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+{% endmacro %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% set jsPackName = 'main' %}
+{% set context = data.text %}
+{% set data = data.data %}
+
+{% block content %}
+<div class="app">
+  <h1 class="graphic-title">{{ context.title }}</h1>
+  <p class="graphic-prose">{{ context.prose }}</p>
+  <div class="dropdown-container card-container">
+    <div class="label">Select a credit card</div>
+    <div class="select-container">
+      <select class="nav" id="card-dropdown">
+        <option value="">---</option>
+        {% for card in data.credit_cards %}
+          <option value="{{ card.credit_card }}">{{ card.credit_card }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="dropdown-container carrier-container">
+    <div class="label">Select a carrier</div>
+    <div class="select-container">
+      <select class="nav" id="carrier-dropdown">
+        <option value="">---</option>
+        {% for carrier in data.carriers %}
+          <option value="{{ carrier.REPORTING_CARRIER }}">{{ carrier.Name }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="dropdown-container origin-container">
+    <div class="label">Select an origin</div>
+    <div class="select-container">
+      <select class="nav" id="origin-dropdown">
+        <option value="">---</option>
+        {% for origin in data.origins %}
+          <option value="{{ origin.IATA }}">{{ origin.Name }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="dropdown-container destination-container">
+    <div class="label">Select a destination</div>
+    <div class="select-container">
+      <select class="nav" id="destination-dropdown">
+        <option value="">---</option>
+        {% for destination in data.destinations %}
+          <option value="{{ destination.IATA }}">{{ destination.Name }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+
+  <div id="graphic" class="graphic"></div>
+  <ul class="graphic-footer">
+    {% if context.note %}<li>Note: {{ context.note }}</li>{% endif %}
+    {% if context.source %}<li>Source: {{ context.source }}</li>{% endif %}
+    {% if context.credit %}<li>Credit: {{ context.credit }}</li>{% endif %}
+  </ul>
+</div>
+{% endblock content %}
+
+{% block inline_data %}
+{% if data.data %}
+<script>
+  window.DATA = {{ data.data|dump }};
+</script>
+{% endif %}
+{% endblock inline_data %}
